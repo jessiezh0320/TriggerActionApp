@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MultiTriggerApp1"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MultiTriggerApp1.MainPage">
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="mainTemplate">
+            <StackLayout  VerticalOptions="Center" HorizontalOptions="Center">
+                <ContentPresenter />
+                <StackLayout>
+                    <Label Text="This is Main Template!!!" />
+                    <Button Text="Open SubTemplate" Clicked="OpenSubTemplate_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="subTemplate">
+            <StackLayout  VerticalOptions="Center" HorizontalOptions="Center">
+                <ContentPresenter />
+                <StackLayout>
+                    <Label Text="This is Sub Template!!!" />
+                    <Button Text="Values True!" Clicked="AllTrueValue_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <ContentView x:Name="myContent" ControlTemplate="{StaticResource mainTemplate}">
+        <Label Text="I am Content Presenter!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+            <Label.Triggers>
+                <MultiTrigger TargetType="Label">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding ValueA}" Value="True" />
+                        <BindingCondition Binding="{Binding ValueB}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.EnterActions>
+                        <local:SomeAction />
+                    </MultiTrigger.EnterActions>
+                </MultiTrigger>
+            </Label.Triggers>
+        </Label>
+    </ContentView>
+
+</ContentPage>
